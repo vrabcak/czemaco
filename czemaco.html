@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Czech map compare</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <!-- leaflet -->
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+        
+        <!-- mapy.cz api -->
+        <script src="http://api4.mapy.cz/loader.js"></script>
+	<script>Loader.load();</script>
+        
+        <style>
+            #twomaps {display: flex; height: 95vh}
+            #mapycz {width: 49.5vw; cursor: default !important;}
+            #llmap {width: 50vw; cursor: default !important;}
+            #spacer {width: 0.5vw;}
+        </style>
+    </head>
+    
+    <body>
+        <div id="twomaps">
+            <div id="mapycz"></div>
+            <div id="spacer"></div>
+            <div id="llmap"></div>
+        </div>
+        <div id="debug"> DBG </div>
+        
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+        <script src="js/czemaco.js"></script>
+    </body>
+</html>
