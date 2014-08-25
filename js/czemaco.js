@@ -111,3 +111,6 @@ function copyMousePositionFromLlmap(e){
     
 };
 llmap.on('mousemove',copyMousePositionFromLlmap);
+
+//llmap.on('contextmenu', function (e){
+//});
