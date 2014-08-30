@@ -1,0 +1,15 @@
+{
+  "name": "czemaco",
+  "version": "0.0.1",
+  "description": "Czech map compare",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt-cruncher": "^1.3.0",
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
