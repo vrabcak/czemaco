@@ -130,7 +130,3 @@ function copyMousePositionFromLlmap(e){
 llmap.on('mousemove',copyMousePositionFromLlmap);
 
 
-/* FIXME implement right mouse menu */
-llmap.on('contextmenu', function (e){
-  alert ('Right mouse button pressed');
-});
