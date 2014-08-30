@@ -1,7 +1,7 @@
 
-/** small helper singleton object 
+/** small helper singleton object
  *  displays log output under map
- * 
+ *
  */
 var logger = (function (){
     var outel = document.getElementById("debug");
@@ -101,7 +101,7 @@ markerLayer.addMarker(marker);
 logger.log("All up and running");
 
 
-/** 
+/**
  * Move event listener for Lefalet map
  * @param {MouseEvent} e
  * @returns {undefined} nothing
@@ -111,7 +111,8 @@ function moveSMmapFromLlmap(e){
     var zoom = llmap.getZoom();
     logger.log(latlon.toString()+zoom.toString());
     mapa.setCenterZoom(SMap.Coords.fromWGS84(latlon.lng,latlon.lat), zoom-2);
-};
+}
+
 llmap.on('move',moveSMmapFromLlmap);
 llmap.on('zoomend',moveSMmapFromLlmap);
 
@@ -124,7 +125,8 @@ function copyMousePositionFromLlmap(e){
     
 
     
-};
+}
+
 llmap.on('mousemove',copyMousePositionFromLlmap);
 
 
