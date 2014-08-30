@@ -35,7 +35,7 @@ var MTBMapLayer = L.tileLayer('http://tile.mtbmap.cz/mtbmap_tiles/{z}/{x}/{y}.pn
 var cuzkOrtofotoLayer = L.tileLayer.wms("http://geoportal.cuzk.cz/WMS_ORTOFOTO_PUB/service.svc/get", {
     layers: 'GR_ORTFOTORGB',
     format: 'image/jpeg',
-    attribution: "© ČÚZK",
+    attribution: "(c) ČÚZK",
     version: "1.1.1",
     crs: L.CRS.EPSG3857,
     maxZoom: 22
@@ -130,3 +130,7 @@ function copyMousePositionFromLlmap(e){
 llmap.on('mousemove',copyMousePositionFromLlmap);
 
 
+/* FIXME implement right mouse menu */
+llmap.on('contextmenu', function (e){
+  alert ('Right mouse button pressed');
+});
