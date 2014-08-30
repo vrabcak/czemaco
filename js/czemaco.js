@@ -41,6 +41,18 @@ var cuzkOrtofotoLayer = L.tileLayer.wms("http://geoportal.cuzk.cz/WMS_ORTOFOTO_P
     maxZoom: 22
 });
 
+var waymarkedTrailsCyclingLayer = L.tileLayer('http://tile.waymarkedtrails.org/cycling/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>"',
+    maxNativeZoom: 17,
+    maxZoom: 22
+});
+
+var waymarkedTrailsHikingLayer = L.tileLayer('http://tile.waymarkedtrails.org/hiking/{z}/{x}/{y}.png', {
+    attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>"',
+    maxNativeZoom: 17,
+    maxZoom: 22
+});
+
 
 var llmap = L.map('llmap', {
     center: [50.0648527,14.518207],
@@ -54,7 +66,10 @@ L.control.layers({
     "Prahou na kole": PNKLayer,
     "MTB Mapa": MTBMapLayer
 },
-{},
+{
+    "Waymarked Trails Cycling": waymarkedTrailsCyclingLayer,
+    "Waymarked Trails Hiking": waymarkedTrailsHikingLayer
+},
 {collapsed:true
 }).addTo(llmap);
 
@@ -97,6 +112,7 @@ function moveSMmapFromLlmap(e){
     logger.log(latlon.toString()+zoom.toString());
     mapa.setCenterZoom(SMap.Coords.fromWGS84(latlon.lng,latlon.lat), zoom-2);
 }
+
 llmap.on('move',moveSMmapFromLlmap);
 llmap.on('zoomend',moveSMmapFromLlmap);
 
@@ -110,6 +126,7 @@ function copyMousePositionFromLlmap(e){
 
     
 }
+
 llmap.on('mousemove',copyMousePositionFromLlmap);
 
 
