@@ -152,10 +152,17 @@ function makeJOSMlink (latlng){
 function makeGoogleMapslink (latlng){
     var lat = latlng.lat.toString();
     var lng = latlng.lng.toString();
-    var linkUrl = 'http://www.google.com/maps/search/'+lat+','+lng;  //+','+z+'z';
+    var linkUrl = 'http://www.google.com/maps/search/'+lat+','+lng;  
     return '<a href="' + linkUrl +'" target="blank"> Google maps </a>';
 }
 
+function makeSeznamMaplink (latlng){
+    var lat = latlng.lat.toString();
+    var lng = latlng.lng.toString();
+    var linkUrl = 'http://mapy.cz/cykloturisticka?x='+lng+'&y='+lat+'&z=15&l=0&pano=1';
+    return '<a href="' + linkUrl +'" target="blank"> Mapy.cz </a>';
+ }
+ 
 var contextMenu = {
     contextMenuEl: document.getElementById('contextmenu'),
     addLink: function (htmlString) {
@@ -182,8 +189,10 @@ var contextMenu = {
 
 llmap.on('contextmenu', function (e){
     contextMenu.show(e.containerPoint.x, e.containerPoint.y, 
-                     [makeJOSMlink(e.latlng),
-                      makeGoogleMapslink(e.latlng)]);
+                     [  makeJOSMlink(e.latlng),
+                        makeGoogleMapslink(e.latlng),
+                        makeSeznamMaplink(e.latlng)
+                    ]);
 });
 
 llmap.on('click', function (e){
