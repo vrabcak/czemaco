@@ -149,6 +149,12 @@ function makeJOSMlink (latlng){
     return '<a href="' + linkUrl +'" target="blank"> Open in JOSM </a>';
 }
 
+function makeGoogleMapslink (latlng){
+    var lat = latlng.lat.toString();
+    var lng = latlng.lng.toString();
+    var linkUrl = 'http://www.google.com/maps/search/'+lat+','+lng;  //+','+z+'z';
+    return '<a href="' + linkUrl +'" target="blank"> Google maps </a>';
+}
 
 var contextMenu = {
     contextMenuEl: document.getElementById('contextmenu'),
@@ -175,7 +181,9 @@ var contextMenu = {
 //contextMenuEl = document.getElementById('contextmenu');
 
 llmap.on('contextmenu', function (e){
-    contextMenu.show(e.containerPoint.x, e.containerPoint.y, [makeJOSMlink(e.latlng)]);
+    contextMenu.show(e.containerPoint.x, e.containerPoint.y, 
+                     [makeJOSMlink(e.latlng),
+                      makeGoogleMapslink(e.latlng)]);
 });
 
 llmap.on('click', function (e){
