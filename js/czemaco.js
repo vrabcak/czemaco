@@ -127,7 +127,9 @@ function copyMousePositionFromLlmap(e){
     
 }
 
-llmap.on('mousemove',copyMousePositionFromLlmap);
+llmap.on('mousemove', function (e) {
+    copyMousePositionFromLlmap(e);
+});
 
 /**
  * make JOSM remote control link from leaflet LatLng object
@@ -148,18 +150,39 @@ function makeJOSMlink (latlng){
 }
 
 
+var contextMenu = {
+    contextMenuEl: document.getElementById('contextmenu'),
+    addLink: function (htmlString) {
+        this.contextMenuEl.innerHTML += htmlString + '<br>';
+    },
+    empty: function () {
+        this.contextMenuEl.innerHTML = " ";
+    },
+    show: function (left,top,menuitems) {
+        this.empty();
+        for (var i=0; i<menuitems.length; i+=1 ){
+            this.addLink(menuitems[i]);
+        }
+        this.contextMenuEl.style.visibility = 'visible';
+        this.contextMenuEl.style.left = left + 'px';
+        this.contextMenuEl.style.top = top + 'px';
+    },
+    hide: function(){
+        this.contextMenuEl.style.visibility = 'hidden';
+    }
+};
 
-contextMenuEl = document.getElementById('contextmenu');
+//contextMenuEl = document.getElementById('contextmenu');
 
 llmap.on('contextmenu', function (e){
-  contextMenuEl.style.visibility = 'visible';
-  contextMenuEl.style.left = e.containerPoint.x + 'px';
-  contextMenuEl.style.top = e.containerPoint.y + 'px';
-  contextMenuEl.innerHTML = makeJOSMlink(e.latlng);
-
+    contextMenu.show(e.containerPoint.x, e.containerPoint.y, [makeJOSMlink(e.latlng)]);
 });
 
 llmap.on('click', function (e){
-  contextMenuEl.style.visibility = 'hidden';
+  contextMenu.hide();
+});
+
+llmap.on('drag', function (e){
+  contextMenu.hide();
 });
 
