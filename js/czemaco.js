@@ -129,4 +129,37 @@ function copyMousePositionFromLlmap(e){
 
 llmap.on('mousemove',copyMousePositionFromLlmap);
 
+/**
+ * make JOSM remote control link from leaflet LatLng object
+ * bounding box is now fixed size
+ * @param {LatLng} latlng
+ * @returns {string} html string ingluding <a href> tag
+ */
+function makeJOSMlink (latlng){
+    var baseUrl = 'http://127.0.0.1:8111/load_and_zoom';
+    var latOffset = 0.001,lngOffset = 0.002;
+    var left = (latlng.lng-lngOffset).toString();
+    var right = (latlng.lng+lngOffset).toString();
+    var top = (latlng.lat+latOffset).toString();
+    var bottom = (latlng.lat-latOffset).toString();
+
+    var linkUrl = baseUrl + '?left='+left+'&right='+right+'&top='+top+'&bottom='+bottom;
+    return '<a href="' + linkUrl +'" target="blank"> Open in JOSM </a>';
+}
+
+
+
+contextMenuEl = document.getElementById('contextmenu');
+
+llmap.on('contextmenu', function (e){
+  contextMenuEl.style.visibility = 'visible';
+  contextMenuEl.style.left = e.containerPoint.x + 'px';
+  contextMenuEl.style.top = e.containerPoint.y + 'px';
+  contextMenuEl.innerHTML = makeJOSMlink(e.latlng);
+
+});
+
+llmap.on('click', function (e){
+  contextMenuEl.style.visibility = 'hidden';
+});
 

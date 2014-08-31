@@ -18,6 +18,15 @@
             #mapycz {width: 49.5vw; cursor: default !important;}
             #llmap {width: 50vw; cursor: default !important;}
             #spacer {width: 0.5vw;}
+            
+            #contextmenu {
+                position: absolute;
+                visibility: hidden;
+                z-index:1;
+                top: 0px;
+                left: 0px;
+                background-color: white;
+            }
         </style>
     </head>
     
@@ -25,9 +34,15 @@
         <div id="twomaps">
             <div id="mapycz"></div>
             <div id="spacer"></div>
-            <div id="llmap"></div>
+            <div id="llmap">
+                <div id="contextmenu">
+                    Right click context menu
+                </div>
+            </div>
         </div>
         <div id="debug"> DBG </div>
+        
+        
         
         <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
         <script src="js/czemaco.js"></script>
