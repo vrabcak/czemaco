@@ -75,9 +75,9 @@ L.control.layers({
     collapsed: true
 }).addTo(llmap);
 
-L.control.scale({
-    imperial: false
-}).addTo(llmap);
+//L.control.scale({
+//    imperial: false
+//}).addTo(llmap);
 
 
 
