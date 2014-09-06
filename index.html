@@ -208,54 +208,84 @@ function makeJOSMlink(latlng) {
         top = (latlng.lat + latOffset).toString(),
         bottom = (latlng.lat - latOffset).toString(),
         linkUrl = baseUrl + '?left=' + left + '&right=' + right + '&top=' + top + '&bottom=' + bottom;
-    return '<a href="' + linkUrl + '" target="blank"> Open in JOSM </a>';
+    return {
+        url: linkUrl,
+        title: 'Edit in JOSM'
+    };
 }
 
 function makeGoogleMapslink(latlng) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
         linkUrl = 'http://www.google.com/maps/search/' + lat + ',' + lng;
-    return '<a href="' + linkUrl + '" target="blank"> Google maps </a>';
+    return {
+        url: linkUrl,
+        title: 'Google maps'
+    };
 }
 
 function makeSeznamMaplink(latlng) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
         linkUrl = 'http://mapy.cz/cykloturisticka?x=' + lng + '&y=' + lat + '&z=15&l=0&pano=1';
-    return '<a href="' + linkUrl + '" target="blank"> Mapy.cz </a>';
+    return {
+        url: linkUrl,
+        title: 'Mapy.cz'
+    };
 }
 
-var contextMenu = {
-    contextMenuEl: document.getElementById('contextmenu'),
-    addLink: function (htmlString) {
-        this.contextMenuEl.innerHTML += htmlString + '<br>';
-    },
-    empty: function () {
-        this.contextMenuEl.innerHTML = " ";
-    },
-    show: function (left, top, menuitems) {
-        var i;
-        
-        this.empty();
-        for (i = 0; i < menuitems.length; i += 1) {
-            this.addLink(menuitems[i]);
-        }
-        this.contextMenuEl.style.visibility = 'visible';
-        this.contextMenuEl.style.left = left + 'px';
-        this.contextMenuEl.style.top = top + 'px';
-    },
-    hide: function () {
-        this.contextMenuEl.style.visibility = 'hidden';
-    }
-};
 
+function makeOSMNotesLink(latlng, zoom) {
+    var lat = latlng.lat.toString(),
+        lng = latlng.lng.toString(),
+        linkUrl = 'http://www.openstreetmap.org/note/new#map=' + zoom + '/' + lat + '/' + lng;
+    return {
+        url: linkUrl,
+        title: 'Add OSM note'
+    };
+}
+
+
+var contextMenu = (function () {
+    var contextMenuEl = document.getElementById('contextmenu');
+
+    return ({
+        addLink: function (link) {
+            contextMenuEl.innerHTML += '<a href="' + link.url + '" target="blank">' + link.title + '</a>' + '<br>';
+        },
+        empty: function () {
+            contextMenuEl.innerHTML = " ";
+        },
+        show: function (left, top, menuitems) {
+            var i;
+
+            this.empty();
+            for (i = 0; i < menuitems.length; i += 1) {
+                this.addLink(menuitems[i]);
+            }
+            contextMenuEl.style.visibility = 'visible';
+            contextMenuEl.style.left = left + 'px';
+            contextMenuEl.style.top = top + 'px';
+        },
+        hide: function () {
+            contextMenuEl.style.visibility = 'hidden';
+        }
+    });
+
+}());
 //contextMenuEl = document.getElementById('contextmenu');
 
 llmap.on('contextmenu', function (e) {
-    contextMenu.show(e.containerPoint.x, e.containerPoint.y, [makeJOSMlink(e.latlng),
-                        makeGoogleMapslink(e.latlng),
-                        makeSeznamMaplink(e.latlng)
-                    ]);
+    var links = [],
+        latlng = e.latlng,
+        zoom = llmap.getZoom();
+    links.push(makeJOSMlink(latlng));
+    links.push(makeGoogleMapslink(latlng));
+    links.push(makeSeznamMaplink(latlng));
+    if (zoom > 11) {
+        links.push(makeOSMNotesLink(latlng, zoom));
+    }
+    contextMenu.show(e.containerPoint.x, e.containerPoint.y, links);
 });
 
 llmap.on('click', function (e) {
