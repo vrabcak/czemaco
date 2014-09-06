@@ -1,31 +1,33 @@
-module.exports = function(grunt) {
+/*jslint node: true, sloppy: true */
 
-	grunt.initConfig({
+module.exports = function (grunt) {
 
-		inlineEverything: {
+    grunt.initConfig({
 
-			simpleExample: {
+        inlineEverything: {
 
-				options: {
-					tags: {
-						link: true,
-						script: true
-					}
-				},
+            simpleExample: {
 
-				src: 'czemaco.html',
-				dest: 'build/czemaco.html'
+                options: {
+                    tags: {
+                        link: true,
+                        script: true
+                    }
+                },
 
-			}
-			
-		}
+                src: 'czemaco.html',
+                dest: 'build/czemaco.html'
 
-	});
+            }
 
-	grunt.loadNpmTasks('grunt-cruncher');
+        }
 
-	grunt.registerTask('inline', ['inlineEverything']);
-	
-	grunt.registerTask('default',['inlineEverything']);
+    });
+
+    grunt.loadNpmTasks('grunt-cruncher');
+
+    grunt.registerTask('inline', ['inlineEverything']);
+
+    grunt.registerTask('default', ['inlineEverything']);
 
 };
