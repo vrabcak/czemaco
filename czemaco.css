@@ -1,0 +1,24 @@
+#twomaps {
+    display: flex;
+    height: 95vh;
+}
+#mapycz {
+    width: 45.5vw;
+    cursor: default !important;
+}
+#llmap {
+    width: 50vw;
+    cursor: default !important;
+}
+#spacer {
+    width: 0.5vw;
+}
+#contextmenu {
+    position: absolute;
+    visibility: hidden;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+    background-color: white;
+    padding: 4px;
+}

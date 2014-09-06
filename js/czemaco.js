@@ -1,5 +1,5 @@
 /*jslint browser: true, sloppy: true */
-/*global L: false, SMap: false, JAK: false  */
+/*global L, SMap, JAK  */
 
 /** small helper singleton object
  *  displays log output under map
