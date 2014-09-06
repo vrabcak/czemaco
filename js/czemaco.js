@@ -179,6 +179,17 @@ function makeSeznamMaplink(latlng) {
 }
 
 
+function makeOSMNotesLink(latlng, zoom) {
+    var lat = latlng.lat.toString(),
+        lng = latlng.lng.toString(),
+        linkUrl = 'http://www.openstreetmap.org/note/new#map=' + zoom + '/' + lat + '/' + lng;
+    return {
+        url: linkUrl,
+        title: 'Add OSM note'
+    };
+}
+
+
 var contextMenu = (function () {
     var contextMenuEl = document.getElementById('contextmenu');
 
@@ -215,6 +226,9 @@ llmap.on('contextmenu', function (e) {
     links.push(makeJOSMlink(latlng));
     links.push(makeGoogleMapslink(latlng));
     links.push(makeSeznamMaplink(latlng));
+    if (zoom > 11) {
+        links.push(makeOSMNotesLink(latlng, zoom));
+    }
     contextMenu.show(e.containerPoint.x, e.containerPoint.y, links);
 });
 
