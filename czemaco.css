@@ -8,7 +8,6 @@
 }
 #llmap {
     width: 50vw;
-    cursor: default !important;
 }
 #spacer {
     width: 0.5vw;
@@ -17,8 +16,8 @@
     position: absolute;
     visibility: hidden;
     z-index: 1;
-    top: 0px;
-    left: 0px;
+    top: 0;
+    left: 0;
     background-color: white;
     padding: 4px;
 }
