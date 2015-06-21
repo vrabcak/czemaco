@@ -113,7 +113,7 @@ function moveSMmapFromLlmap(e) {
     var latlon = llmap.getCenter(),
         zoom = llmap.getZoom();
     logger.log(latlon.toString() + zoom.toString());
-    mapa.setCenterZoom(SMap.Coords.fromWGS84(latlon.lng, latlon.lat), zoom - 2);
+    mapa.setCenterZoom(SMap.Coords.fromWGS84(latlon.lng, latlon.lat), zoom);
 }
 
 llmap.on('move', moveSMmapFromLlmap);
