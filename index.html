@@ -208,13 +208,10 @@ function makeJOSMlink(latlng) {
         top = (latlng.lat + latOffset).toString(),
         bottom = (latlng.lat - latOffset).toString(),
         linkUrl = baseUrl + '?left=' + left + '&right=' + right + '&top=' + top + '&bottom=' + bottom;
-    return {
-        url: linkUrl,
-        title: 'Edit in JOSM'
-    };
+    return '<a href="" onclick="fetch(\''+linkUrl+'\'); return false;">Edit in JOSM </a>' + '<br>';
 }
 
-function makeGoogleMapslink(latlng) {
+function makeGoogleMapslinkUrl(latlng) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
         linkUrl = 'http://www.google.com/maps/search/' + lat + ',' + lng;
@@ -224,7 +221,7 @@ function makeGoogleMapslink(latlng) {
     };
 }
 
-function makeSeznamMaplink(latlng) {
+function makeSeznamMaplinkUrl(latlng) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
         linkUrl = 'http://mapy.cz/cykloturisticka?x=' + lng + '&y=' + lat + '&z=15&l=0&pano=1';
@@ -235,7 +232,7 @@ function makeSeznamMaplink(latlng) {
 }
 
 
-function makeOSMNotesLink(latlng, zoom) {
+function makeOSMNotesLinkUrl(latlng, zoom) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
         linkUrl = 'http://www.openstreetmap.org/note/new#map=' + zoom + '/' + lat + '/' + lng;
@@ -251,15 +248,16 @@ var contextMenu = (function () {
 
     return ({
         addLink: function (link) {
-            contextMenuEl.innerHTML += '<a href="' + link.url + '" target="blank">' + link.title + '</a>' + '<br>';
+            contextMenuEl.innerHTML += '<a href="' + link.url + '" target="_blank">' + link.title + '</a>' + '<br>';
         },
         empty: function () {
             contextMenuEl.innerHTML = " ";
         },
-        show: function (left, top, menuitems) {
+        show: function (left, top, menuitems, latlng) {
             var i;
-
+            
             this.empty();
+            contextMenuEl.innerHTML += makeJOSMlink(latlng); 
             for (i = 0; i < menuitems.length; i += 1) {
                 this.addLink(menuitems[i]);
             }
@@ -279,13 +277,12 @@ llmap.on('contextmenu', function (e) {
     var links = [],
         latlng = e.latlng,
         zoom = llmap.getZoom();
-    links.push(makeJOSMlink(latlng));
-    links.push(makeGoogleMapslink(latlng));
-    links.push(makeSeznamMaplink(latlng));
+    links.push(makeGoogleMapslinkUrl(latlng));
+    links.push(makeSeznamMaplinkUrl(latlng));
     if (zoom > 11) {
-        links.push(makeOSMNotesLink(latlng, zoom));
+        links.push(makeOSMNotesLinkUrl(latlng, zoom));
     }
-    contextMenu.show(e.containerPoint.x, e.containerPoint.y, links);
+    contextMenu.show(e.containerPoint.x, e.containerPoint.y, links, latlng);
 });
 
 llmap.on('click', function (e) {
