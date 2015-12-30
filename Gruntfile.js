@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                 },
 
                 src: 'czemaco.html',
-                dest: 'build/index.html'
+                dest: 'dist/index.html'
 
             }
 
