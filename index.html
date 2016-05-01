@@ -35,7 +35,10 @@
         
         <!-- mapy.cz api -->
         <script src="http://api4.mapy.cz/loader.js"></script>
-	    <script>Loader.load();</script>
+	    <script>
+	        /* global Loader*/
+	        Loader.load();
+	    </script>
         
     </head>
     
@@ -224,7 +227,7 @@ function makeGoogleMapslinkUrl(latlng) {
 function makeSeznamMaplinkUrl(latlng) {
     var lat = latlng.lat.toString(),
         lng = latlng.lng.toString(),
-        linkUrl = 'http://mapy.cz/cykloturisticka?x=' + lng + '&y=' + lat + '&z=15&l=0&pano=1';
+        linkUrl = 'http://mapy.cz/turisticka?x=' + lng + '&y=' + lat + '&z=15&l=0&pano=1';
     return {
         url: linkUrl,
         title: 'Mapy.cz'
